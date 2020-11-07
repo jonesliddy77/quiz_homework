@@ -108,7 +108,6 @@ padding: 15px 30px;
     width: 550px;
     background-color: white;
     border-radius:5px ;
-    pointer-events: none;
     transform: translate(-50%, -50%) scale(0.9);
 
 }
@@ -211,7 +210,6 @@ section .option_list .option:hover{
     text-align: center;
     font-size: 15px;
     line-height: 27px;
-    pointer-events: none;
 }
 
 .option_list .option .icon.tick{
@@ -273,9 +271,7 @@ footer .next_btn:hover{
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
-    pointer-events: none;
     transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0;
 }
 .result_box .icon{
     font-size: 100px;
@@ -302,7 +298,9 @@ footer .next_btn:hover{
     display: flex;
     margin: 20px 0;
 }
-
+.result_box .buttons:hover{
+opacity: 0.5;
+}
 .result_box .buttons button{
     margin: 0 10px;
     height: 45px;
@@ -311,8 +309,10 @@ footer .next_btn:hover{
     outline: none;
     font-size: 18px;
     border-radius: 5px;
-    border: 1px solid var(--textColor);
+    border: 1px solid cadetblue;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
+    color: cadetblue;
+    text-align: center;
 }

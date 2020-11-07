@@ -1,10 +1,36 @@
 var questions = [
     ['q 1','a1','a2','a3','a4','a2'],
-    ['q 2','a1','a2','a3','a4','a4']
+    ['q 2','a1','a2','a3','a4','a4'],
+    ['q 3','a1','a2','a3','a4','a2'],
+    ['q 4','a1','a2','a3','a4','a2'],
+    ['q 5','a1','a2','a3','a4','a2'],
+    ['q 6','a1','a2','a3','a4','a2'],
 ]
-var questionCounter = 0;
+ var questionCount = 0;
+function resultBox(){
 
+    body.innerHTML = `<div class="result_box">
+            <div class="icon">
+              <i class="fas fa-crown"></i>
+            </div>
+            <div class="complete_text">you have compleated the quiz</div>
+            <div class="score_text">
+              <span
+                >and you only got <strong id="nums">0</strong> out of
+                <strong id="nums">5</strong></span
+              >
+            </div>
+            <div class="buttons">
+              <button class="quitQuiz">quit quiz</button>
+            </div>
+          </div>`
+          document.querySelector('.quitQuiz').addEventListener('click', function(){
+            location.reload();
+        });
+       
+};
 function displayQuestion(questionNum){
+   
     document.querySelector('#question-block').innerHTML =` <div class="que_text">
     <span>${questions[questionNum][0]}</span>
 </div>
@@ -24,12 +50,7 @@ function displayQuestion(questionNum){
         ${questions[questionNum][4]}
     </div>
 </div>`
-    document.querySelector('#answer1').addEventListener('click', function(){
-       console.log(this.innerText); 
-       questionCounter++;  
-       displayQuestion(questionCounter);
-    });
- 
+
 }
 
 
@@ -81,8 +102,17 @@ document.querySelector('.continue').addEventListener('click', function(){
         <button class="next_btn">next question</button>
     </footer>
   </div> `
-  displayQuestion(questionCounter);
+  displayQuestion(questionCount)
+document.querySelector('.next_btn').addEventListener('click', function(){
+    questionCount++;
+    displayQuestion(questionCount);
+    if(questionCount==5){
+        resultBox();
+    }
 });
+
+});
+
 
 }
 document.querySelector(".start_btn").addEventListener("click", startQuizHandler);
