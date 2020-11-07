@@ -1,12 +1,14 @@
 var questions = [
-    ['q 1','a1','a2','a3','a4','a2'],
-    ['q 2','a1','a2','a3','a4','a4'],
-    ['q 3','a1','a2','a3','a4','a2'],
-    ['q 4','a1','a2','a3','a4','a2'],
-    ['q 5','a1','a2','a3','a4','a2'],
-    ['q 6','a1','a2','a3','a4','a2'],
+    ['1. What kind of puzzle is the Rubikss Magic?','Twisty puzzle','Folding puzzle','Sliding puzzle','Jigsaw puzzle','Folding puzzle'],
+    ['2. Lucas Etter 4.90Who was the first speedcuber to solve the Rubiks Cube under 5 seconds on an official competition?','Feliks Zemdegs','Collin Burns','Oskar van Deventer','Lucas Etter','Lucas Etter'],
+    ['3.How fast does this robot solve the cube?','1sec','2.78sec','3-4','Less than 1 sec','Less than 1 sec'],
+    ['4.Which of the following puzzles became an official competition event in 2014?','Hungarian Rings','Void Cube','Skewb','Babylon Tower','Skewb'],
+    ['5. In total, how many little blocks make up the Rubiks Cube?','26','54','30','9','26'],
+    ['6. What is the Domino Cube?','A version of the classic Domino game','3x3x2 cuboid puzzle','4x3x3 twisty puzzle','Rubiks Cube with domino pattern stickers','3x3x2 cuboid puzzle'],
+    []
 ]
  var questionCount = 0;
+
 function resultBox(){
 
     body.innerHTML = `<div class="result_box">
@@ -68,11 +70,11 @@ function startQuizHandler() {
 <span>rules for the quiz</span>
 </div>
 <div class="rules_list">
-<div class="rules">1. youll have <span>15 seconds</span> each question</div>
-<div class="rules">2. oncw you select one answer you cant go back</div>
-<div class="rules">3. once you runn out of time the quiz will count the question wrong</div>
-<div class="rules">4. you cant excite the quiz</div>
-<div class="rules">5. youll get point based on what you get right</div>
+<div class="rules">1. You'll have <span>15 seconds</span> on each question</div>
+<div class="rules">2. Once you select one answer you can not select another</div>
+<div class="rules">3. Once you run out of time that question will be counted wrong</div>
+<div class="rules">4. You cant excite the quiz</div>
+<div class="rules">5. Youll get point based on what you get right</div>
 </div>
 <div class="buttons">
 <button class="quit">exit quiz</button>
@@ -83,6 +85,7 @@ document.querySelector('.quit').addEventListener('click', function(){
     location.reload();
 });
 document.querySelector('.continue').addEventListener('click', function(){
+    setInterval('.timer_sec', 500);
     body.innerHTML = `
     <div class="quiz_box">
     <header>
@@ -106,7 +109,7 @@ document.querySelector('.continue').addEventListener('click', function(){
 document.querySelector('.next_btn').addEventListener('click', function(){
     questionCount++;
     displayQuestion(questionCount);
-    if(questionCount==5){
+    if(questionCount===6){
         resultBox();
     }
 });
