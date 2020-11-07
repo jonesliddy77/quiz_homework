@@ -85,7 +85,6 @@ document.querySelector('.quit').addEventListener('click', function(){
     location.reload();
 });
 document.querySelector('.continue').addEventListener('click', function(){
-    setInterval('.timer_sec', 500);
     body.innerHTML = `
     <div class="quiz_box">
     <header>
