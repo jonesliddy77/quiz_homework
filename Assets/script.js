@@ -1,17 +1,65 @@
 var questions = [
-    ['1. What kind of puzzle is the Rubikss Magic?','Twisty puzzle','Folding puzzle','Sliding puzzle','Jigsaw puzzle','Folding puzzle'],
-    ['2. Lucas Etter 4.90Who was the first speedcuber to solve the Rubiks Cube under 5 seconds on an official competition?','Feliks Zemdegs','Collin Burns','Oskar van Deventer','Lucas Etter','Lucas Etter'],
-    ['3.How fast does this robot solve the cube?','1sec','2.78sec','3-4','Less than 1 sec','Less than 1 sec'],
-    ['4.Which of the following puzzles became an official competition event in 2014?','Hungarian Rings','Void Cube','Skewb','Babylon Tower','Skewb'],
-    ['5. In total, how many little blocks make up the Rubiks Cube?','26','54','30','9','26'],
-    ['6. What is the Domino Cube?','A version of the classic Domino game','3x3x2 cuboid puzzle','4x3x3 twisty puzzle','Rubiks Cube with domino pattern stickers','3x3x2 cuboid puzzle'],
-    []
-]
- var questionCount = 0;
+  [
+    "1. What kind of puzzle is the Rubikss Magic?",
+    "Twisty puzzle",
+    "Folding puzzle",
+    "Sliding puzzle",
+    "Jigsaw puzzle",
+    "Folding puzzle",
+  ],
+  [
+    "2. Who was the first speedcuber to solve the Rubiks Cube under 5 seconds on an official competition?",
+    "Feliks Zemdegs",
+    "Collin Burns",
+    "Oskar van Deventer",
+    "Lucas Etter",
+    "Lucas Etter",
+  ],
+  [
+    "3.How fast does this robot solve the cube?",
+    "1sec",
+    "2.78sec",
+    "3-4",
+    "Less than 1 sec",
+    "Less than 1 sec",
+  ],
+  [
+    "4.Which of the following puzzles became an official competition event in 2014?",
+    "Hungarian Rings",
+    "Void Cube",
+    "Skewb",
+    "Babylon Tower",
+    "Skewb",
+  ],
+  [
+    "5. In total, how many little blocks make up the Rubiks Cube?",
+    "26",
+    "54",
+    "30",
+    "9",
+    "26",
+  ],
+  [
+    "6. What is the Domino Cube?",
+    "A version of the classic Domino game",
+    "3x3x2 cuboid puzzle",
+    "4x3x3 twisty puzzle",
+    "Rubiks Cube with domino pattern stickers",
+    "3x3x2 cuboid puzzle",
+  ],
+  [],
+];
 
-function resultBox(){
-
-    body.innerHTML = `<div class="result_box">
+var questionCount = 0;
+function answerSelector(e, questionNum) {
+  if (e.target.textContent === questions[questionNum][5]) {
+    var icon = document.createElement("div");
+    icon.innerHTML = `<div class="icon tick"><i class="fas fa-check"></i></div>`;
+    document.getElementById(e.target.textContent).append(icon);
+  }
+}
+function resultBox() {
+  body.innerHTML = `<div class="result_box">
             <div class="icon">
               <i class="fas fa-crown"></i>
             </div>
@@ -25,43 +73,45 @@ function resultBox(){
             <div class="buttons">
               <button class="quitQuiz">quit quiz</button>
             </div>
-          </div>`
-          document.querySelector('.quitQuiz').addEventListener('click', function(){
-            location.reload();
-        });
-       
-};
-function displayQuestion(questionNum){
-   
-    document.querySelector('#question-block').innerHTML =` <div class="que_text">
+          </div>`;
+  document.querySelector(".quitQuiz").addEventListener("click", function () {
+    location.reload();
+  });
+}
+function displayQuestion(questionNum) {
+  document.querySelector("#question-block").innerHTML = ` <div class="que_text">
     <span>${questions[questionNum][0]}</span>
 </div>
 <div class="option_list">
-    <div id='answer1' class="option">
-        <span>${questions[questionNum][1]}</span>
-        
-    </div>
-    <div class="option">
-        ${questions[questionNum][2]}
-
-    </div>
-    <div class="option">
-        ${questions[questionNum][3]}
-    </div>
-    <div class="option">
-        ${questions[questionNum][4]}
-    </div>
-</div>`
-
+</div>`;
+  for (i = 1; i < 5; i++) {
+    var question = document.createElement("div");
+    question.className = "option";
+    question.id = questions[questionNum][i];
+    question.textContent = questions[questionNum][i];
+    document.querySelector(".option_list").append(question);
+    question.addEventListener("click", function (e) {
+      answerSelector(e, questionNum);
+      clearInterval(timerInterval);
+    });
+  }
+  var secLeft = 15;
+  var timeleft = document.querySelector(".timer_sec");
+  timeleft.textContent = secLeft;
+  var timerInterval = setInterval(function () {
+    secLeft--;
+    timeleft.textContent = secLeft;
+    if (secLeft <= 0) {
+      clearInterval(timerInterval);
+    }
+  }, 1000);
 }
-
 
 var body = document.querySelector("body");
-function displayStart(){
-    body.innerHTML = `<div class="start_btn"><button>Start Quiz</button></div>`;
+function displayStart() {
+  body.innerHTML = `<div class="start_btn"><button>Start Quiz</button></div>`;
 }
 displayStart();
-
 
 function startQuizHandler() {
   body.innerHTML = `        
@@ -81,17 +131,17 @@ function startQuizHandler() {
 <button class="continue">continue</button>
 </div>
 </div>`;
-document.querySelector('.quit').addEventListener('click', function(){
+  document.querySelector(".quit").addEventListener("click", function () {
     location.reload();
-});
-document.querySelector('.continue').addEventListener('click', function(){
+  });
+  document.querySelector(".continue").addEventListener("click", function () {
     body.innerHTML = `
     <div class="quiz_box">
     <header>
         <div class="title">The rubix cube test</div>
         <div class="timer">
             <div class="time_text">Time Left</div>
-            <div class="timer_sec">15</div>
+            <div class="timer_sec"></div>
         </div>
     </header>
     <section id='question-block'>
@@ -103,22 +153,24 @@ document.querySelector('.continue').addEventListener('click', function(){
         </div>
         <button class="next_btn">next question</button>
     </footer>
-  </div> `
-  displayQuestion(questionCount)
-document.querySelector('.next_btn').addEventListener('click', function(){
-    questionCount++;
+  </div> `;
     displayQuestion(questionCount);
-    if(questionCount===6){
+    document.querySelector(".next_btn").addEventListener("click", function () {
+      questionCount++;
+      displayQuestion(questionCount);
+      if (questionCount === 6) {
         resultBox();
-    }
-});
-
-});
-
-
+      }
+    });
+  });
 }
-document.querySelector(".start_btn").addEventListener("click", startQuizHandler);
+document
+  .querySelector(".start_btn")
+  .addEventListener("click", startQuizHandler);
 
-
-{/* <div class="icon tick"><i class="fas fa-check"></i></div> */}
-{/* <div class="icon cross"><i class="fas fa-times"></i></div> */}
+{
+  /* <div class="icon tick"><i class="fas fa-check"></i></div> */
+}
+{
+  /* <div class="icon cross"><i class="fas fa-times"></i></div> */
+}
